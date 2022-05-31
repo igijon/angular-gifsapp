@@ -9,6 +9,9 @@ export class GifsService {
   private _apiKey    : string = '2IVAmabG0xUF1aRwkv7zzJACllhQjUDY';
   private _historial: string[] = [];
 
+  //TODO: Cambiar any por su tipo correspondiente
+  public resultados: any[] = [];
+
   get historial() {
     //Como se pasa por referencia, para que no pueda ser modifcado se retorna uno nuevo para romper
     //dicha referencia
@@ -29,9 +32,10 @@ export class GifsService {
 
     }
 
-    this.http.get(`https://api.giphy.com/v1/gifs/search?api_key=${this._apiKey}&q=${query}`)
-          .subscribe( (resp:any) => {
+    this.http.get(`https://api.giphy.com/v1/gifs/search?api_key=${ this._apiKey }&q=${ query }&limit=10`)
+          .subscribe( ( resp:any ) => {
             console.log(resp.data);
+            this.resultados = resp.data;
           });
   }
 }
